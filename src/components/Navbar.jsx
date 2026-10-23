@@ -40,7 +40,7 @@ const Navbar = ({ currentPage, onNavigate, onOpenEnquiry }) => {
                 alt="Vrajraj Developers"
                 width="640"
                 height="560"
-                className="h-[66px] w-[76px] object-contain transition-opacity group-hover:opacity-85 sm:h-[72px] sm:w-[84px]"
+                className="logo-intro h-[66px] w-[76px] object-contain transition-opacity group-hover:opacity-85 sm:h-[72px] sm:w-[84px]"
               />
             </button>
 

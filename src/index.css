@@ -72,11 +72,66 @@
   animation: heroFadeRise 0.8s ease-out 0.4s both;
 }
 
+@keyframes logoBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes logoIntro {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  65% {
+    opacity: 0.65;
+    transform: scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes imageSkeletonShimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.logo-loader {
+  animation: logoBlink 1.15s ease-in-out infinite;
+}
+
+.logo-intro {
+  animation: logoIntro 700ms ease-out both;
+}
+
+.image-skeleton {
+  background: linear-gradient(
+    100deg,
+    #e9e5dc 20%,
+    #f7f6f0 45%,
+    #e9e5dc 70%
+  );
+  background-size: 200% 100%;
+  animation: imageSkeletonShimmer 1.4s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-hero-headline,
   .animate-hero-paragraph,
-  .animate-hero-cta {
+  .animate-hero-cta,
+  .logo-loader,
+  .logo-intro,
+  .image-skeleton {
     animation: none !important;
+  }
+
+  .logo-intro {
     opacity: 1 !important;
     transform: none !important;
   }

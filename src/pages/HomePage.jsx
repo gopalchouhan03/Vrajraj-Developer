@@ -11,6 +11,7 @@ import {
   Pause,
 } from "lucide-react";
 import { COMPANY_DETAILS, PROJECTS_DATA } from "../data/projectsData";
+import { ImageWithSkeleton } from "../components/ImageWithSkeleton";
 
 const completedProjects = PROJECTS_DATA.filter(
   (project) => project.status === "Completed",
@@ -259,11 +260,12 @@ const HomePage = ({ onNavigate, onOpenEnquiry }) => {
                   key={image.url}
                   className={`group relative overflow-hidden rounded-sm bg-[#E9E5DC] ${index === 0 ? "sm:col-span-2 lg:col-span-1" : ""}`}
                 >
-                  <img
+                  <ImageWithSkeleton
                     src={image.url}
                     alt={image.caption}
                     loading="lazy"
                     className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    containerClassName="w-full"
                   />
                   <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#12251b]/80 to-transparent px-4 pb-3 pt-10 text-xs text-white">
                     {image.category}
@@ -347,11 +349,12 @@ const HomePage = ({ onNavigate, onOpenEnquiry }) => {
                 className="group overflow-hidden rounded-sm bg-white text-left shadow-sm ring-1 ring-[#E9E5DC] transition-shadow hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#356B4D]"
               >
                 <div className="relative aspect-[16/10] overflow-hidden bg-[#E9E5DC]">
-                  <img
+                  <ImageWithSkeleton
                     src={project.coverImage}
                     alt={`${project.name} project`}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    containerClassName="absolute inset-0"
                   />
                   <span className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-[#234C3B]">
                     {project.status}

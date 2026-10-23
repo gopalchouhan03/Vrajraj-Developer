@@ -6,6 +6,7 @@ import { lazy, Suspense, useState, useEffect } from "react";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 import { EnquiryModal } from "./components/EnquiryModal";
+import { LogoLoader } from "./components/LogoLoader";
 import { PROJECTS_DATA } from "./data/projectsData";
 
 const HomePage = lazy(() =>
@@ -98,16 +99,7 @@ function App() {
 
       {/* Main Page Stage */}
       <main className="flex-1">
-        <Suspense
-          fallback={
-            <div
-              className="flex min-h-[50vh] items-center justify-center"
-              role="status"
-            >
-              Loading page...
-            </div>
-          }
-        >
+        <Suspense fallback={<LogoLoader />}>
           {currentPage === "home" && (
             <HomePage
               onNavigate={handleNavigate}

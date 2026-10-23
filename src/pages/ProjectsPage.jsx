@@ -8,6 +8,7 @@ import {
   RotateCcw,
 } from "lucide-react";
 import { PROJECTS_DATA } from "../data/projectsData";
+import { ImageWithSkeleton } from "../components/ImageWithSkeleton";
 const ProjectsPage = ({ onNavigate, onOpenEnquiry }) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedStatus, setSelectedStatus] = useState("All");
@@ -187,11 +188,12 @@ const ProjectsPage = ({ onNavigate, onOpenEnquiry }) => {
                 <div>
                   {/* Project Cover Image */}
                   <div className="relative aspect-16/10 overflow-hidden bg-[#E9E5DC]">
-                    <img
+                    <ImageWithSkeleton
                       src={project.coverImage}
                       alt={project.name}
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-102"
+                      containerClassName="absolute inset-0"
                     />
 
                     {/* Category & Status Overlays */}

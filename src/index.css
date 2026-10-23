@@ -102,6 +102,17 @@
   }
 }
 
+@keyframes approachCardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .logo-loader {
   animation: logoBlink 1.15s ease-in-out infinite;
 }
@@ -121,13 +132,19 @@
   animation: imageSkeletonShimmer 1.4s ease-in-out infinite;
 }
 
+.approach-card {
+  animation: approachCardEnter 600ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--approach-delay, 0ms);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-hero-headline,
   .animate-hero-paragraph,
   .animate-hero-cta,
   .logo-loader,
   .logo-intro,
-  .image-skeleton {
+  .image-skeleton,
+  .approach-card {
     animation: none !important;
   }
 

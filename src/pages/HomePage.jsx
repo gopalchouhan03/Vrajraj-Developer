@@ -210,7 +210,7 @@ const HomePage = ({ onNavigate, onOpenEnquiry }) => {
                 onNavigate("projects");
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className="inline-flex items-center justify-center rounded-full border border-white/25 bg-[#234C3B] px-10 py-4 font-inter text-base font-medium text-white shadow-2xl transition-colors duration-200 hover:border-white/40 hover:bg-[#356B4D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 active:bg-[#1a382b] sm:px-[56px] sm:py-[20px]"
+              className="inline-flex items-center justify-center rounded-full border border-white/25 bg-[#234C3B] px-7 py-3 font-inter text-sm font-medium text-white shadow-2xl transition-colors duration-200 hover:border-white/40 hover:bg-[#356B4D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 active:bg-[#1a382b] sm:px-8 sm:py-3.5"
             >
               Explore Our Projects
             </button>
@@ -451,11 +451,14 @@ const HomePage = ({ onNavigate, onOpenEnquiry }) => {
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
             {/* Theme 1 */}
-            <div className="bg-white p-5 rounded-xs border border-[#E9E5DC] shadow-xs space-y-3">
-              <div className="w-10 h-10 rounded-xs bg-[#DCE5D9]/70 text-[#234C3B] flex items-center justify-center">
-                <Compass className="w-5 h-5 text-[#356B4D]" />
+            <div
+              className="approach-card group relative overflow-hidden bg-white p-5 rounded-xs border border-[#E9E5DC] shadow-xs space-y-3 transition-all duration-300 hover:-translate-y-1 hover:border-[#B9CBB4] hover:shadow-lg"
+              style={{ "--approach-delay": "0ms" }}
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded-xs bg-[#DCE5D9]/70 text-[#234C3B] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#234C3B] group-hover:text-white">
+                <Compass className="w-5 h-5 text-[#356B4D] transition-colors group-hover:text-white" />
               </div>
-              <h3 className="text-base font-bold text-[#234C3B]">
+              <h3 className="text-base font-bold text-[#234C3B] transition-colors duration-300 group-hover:text-[#66804B]">
                 Thoughtful Planning
               </h3>
               <p className="text-xs sm:text-sm text-[#292D2A]/80 leading-relaxed">
@@ -465,11 +468,14 @@ const HomePage = ({ onNavigate, onOpenEnquiry }) => {
             </div>
 
             {/* Theme 2 */}
-            <div className="bg-white p-5 rounded-xs border border-[#E9E5DC] shadow-xs space-y-3">
-              <div className="w-10 h-10 rounded-xs bg-[#DCE5D9]/70 text-[#234C3B] flex items-center justify-center">
-                <Hammer className="w-5 h-5 text-[#356B4D]" />
+            <div
+              className="approach-card group relative overflow-hidden bg-white p-5 rounded-xs border border-[#E9E5DC] shadow-xs space-y-3 transition-all duration-300 hover:-translate-y-1 hover:border-[#B9CBB4] hover:shadow-lg"
+              style={{ "--approach-delay": "100ms" }}
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded-xs bg-[#DCE5D9]/70 text-[#234C3B] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#234C3B] group-hover:text-white">
+                <Hammer className="w-5 h-5 text-[#356B4D] transition-colors group-hover:text-white" />
               </div>
-              <h3 className="text-base font-bold text-[#234C3B]">
+              <h3 className="text-base font-bold text-[#234C3B] transition-colors duration-300 group-hover:text-[#66804B]">
                 Quality Construction
               </h3>
               <p className="text-xs sm:text-sm text-[#292D2A]/80 leading-relaxed">
@@ -479,11 +485,14 @@ const HomePage = ({ onNavigate, onOpenEnquiry }) => {
             </div>
 
             {/* Theme 3 */}
-            <div className="bg-white p-5 rounded-xs border border-[#E9E5DC] shadow-xs space-y-3">
-              <div className="w-10 h-10 rounded-xs bg-[#DCE5D9]/70 text-[#234C3B] flex items-center justify-center">
-                <ShieldCheck className="w-5 h-5 text-[#356B4D]" />
+            <div
+              className="approach-card group relative overflow-hidden bg-white p-5 rounded-xs border border-[#E9E5DC] shadow-xs space-y-3 transition-all duration-300 hover:-translate-y-1 hover:border-[#B9CBB4] hover:shadow-lg"
+              style={{ "--approach-delay": "200ms" }}
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded-xs bg-[#DCE5D9]/70 text-[#234C3B] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#234C3B] group-hover:text-white">
+                <ShieldCheck className="w-5 h-5 text-[#356B4D] transition-colors group-hover:text-white" />
               </div>
-              <h3 className="text-base font-bold text-[#234C3B]">
+              <h3 className="text-base font-bold text-[#234C3B] transition-colors duration-300 group-hover:text-[#66804B]">
                 Customer Transparency
               </h3>
               <p className="text-xs sm:text-sm text-[#292D2A]/80 leading-relaxed">
@@ -493,11 +502,14 @@ const HomePage = ({ onNavigate, onOpenEnquiry }) => {
             </div>
 
             {/* Theme 4 */}
-            <div className="bg-white p-5 rounded-xs border border-[#E9E5DC] shadow-xs space-y-3">
-              <div className="w-10 h-10 rounded-xs bg-[#DCE5D9]/70 text-[#234C3B] flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 text-[#356B4D]" />
+            <div
+              className="approach-card group relative overflow-hidden bg-white p-5 rounded-xs border border-[#E9E5DC] shadow-xs space-y-3 transition-all duration-300 hover:-translate-y-1 hover:border-[#B9CBB4] hover:shadow-lg"
+              style={{ "--approach-delay": "300ms" }}
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded-xs bg-[#DCE5D9]/70 text-[#234C3B] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#234C3B] group-hover:text-white">
+                <TrendingUp className="w-5 h-5 text-[#356B4D] transition-colors group-hover:text-white" />
               </div>
-              <h3 className="text-base font-bold text-[#234C3B]">
+              <h3 className="text-base font-bold text-[#234C3B] transition-colors duration-300 group-hover:text-[#66804B]">
                 Long-Term Value
               </h3>
               <p className="text-xs sm:text-sm text-[#292D2A]/80 leading-relaxed">

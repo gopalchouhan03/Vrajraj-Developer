@@ -41,6 +41,7 @@ const PROJECTS_DATA = [
       lng: 72.5117,
     },
     coverImage: "/assets/images/project_residency_1792732222157.jpg",
+    video: "/assets/videos/vrajraj-elegance.mp4",
     galleryImages: [
       {
         url: "/assets/images/project_residency_1792732222157.jpg",
@@ -164,6 +165,7 @@ const PROJECTS_DATA = [
       lng: 72.4418,
     },
     coverImage: "/assets/images/project_greens_1792732221978.jpg",
+    video: "/assets/videos/vrajraj-meadow-estates.mp4",
     galleryImages: [
       {
         url: "/assets/images/project_greens_1792732221978.jpg",
@@ -268,6 +270,7 @@ const PROJECTS_DATA = [
       lng: 72.5052,
     },
     coverImage: "/assets/images/project_commercial_1792732223227.jpg",
+    video: "/assets/videos/vrajraj-apex-commercial.mp4",
     galleryImages: [
       {
         url: "/assets/images/project_commercial_1792732223227.jpg",
@@ -374,6 +377,7 @@ const PROJECTS_DATA = [
       lng: 73.1319,
     },
     coverImage: "/assets/images/hero_vrajraj_facade_1792732221176.jpg",
+    video: "/assets/videos/vrajraj-enclave.mp4",
     galleryImages: [
       {
         url: "/assets/images/hero_vrajraj_facade_1792732221176.jpg",

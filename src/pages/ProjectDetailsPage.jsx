@@ -192,29 +192,67 @@ const ProjectDetailsPage = ({ project, onNavigate, onOpenEnquiry }) => {
       </div>
 
       {/* =========================================================================
-       B. Project Image Gallery
+       B. Project Film & Image Gallery
        ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-4 mb-6">
+      <section
+        className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8"
+        aria-labelledby="project-media-heading"
+      >
+        <div className="mb-6 flex flex-col justify-between gap-4 border-b border-[#E9E5DC] pb-5 sm:flex-row sm:items-end">
           <div>
             <span className="text-xs font-bold uppercase tracking-widest text-[#356B4D] block mb-1">
-              Visual Presentation
+              Project Film &amp; Gallery
             </span>
-            <h2 className="text-xl sm:text-3xl font-bold tracking-tight text-[#234C3B]">
-              Project Architectural Gallery
+            <h2
+              id="project-media-heading"
+              className="text-xl sm:text-3xl font-bold tracking-tight text-[#234C3B]"
+            >
+              Experience {project.name}
             </h2>
           </div>
-
           <button
             onClick={() => openGalleryAt(0)}
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#234C3B] hover:text-[#356B4D] border-b border-[#234C3B]/40 pb-0.5 cursor-pointer"
+            className="inline-flex w-fit items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#234C3B] hover:text-[#356B4D] border-b border-[#234C3B]/40 pb-0.5 cursor-pointer"
           >
             <Images className="w-4 h-4 text-[#356B4D]" />
             <span>Open Fullscreen Gallery</span>
           </button>
         </div>
 
-        {/* Mosaic Layout: 1 large on left, 2 smaller stacked on right */}
+        <div className="overflow-hidden rounded-sm border border-[#E9E5DC] bg-[#13281F] shadow-sm">
+          <div className="flex max-h-[75vh] min-h-[220px] items-center justify-center">
+            <video
+              className="block h-auto max-h-[75vh] w-full object-contain"
+              autoPlay
+              muted
+              loop
+              controls
+              playsInline
+              preload="auto"
+              poster={project.coverImage}
+              aria-label={`${project.name} project video`}
+            >
+              <source src={project.video} type="video/mp4" />
+              Your browser does not support embedded videos.
+            </video>
+          </div>
+        </div>
+
+        <div className="mb-4 mt-8 flex items-end justify-between gap-4">
+          <div>
+            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#66804B]">
+              Visual Presentation
+            </span>
+            <h3 className="mt-1 text-lg font-bold tracking-tight text-[#234C3B] sm:text-2xl">
+              Project Architectural Gallery
+            </h3>
+          </div>
+          <span className="hidden text-xs text-[#292D2A]/60 sm:inline">
+            {project.galleryImages.length} photographs
+          </span>
+        </div>
+
+        {/* Mosaic Layout: 1 large photo on left, 2 smaller photos on right */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
           {/* Main Large Photo */}
           <div

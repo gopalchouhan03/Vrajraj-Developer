@@ -43,7 +43,7 @@ const DirectorPage = ({ onNavigate, onOpenEnquiry }) => {
               </p>
               <p className="text-xs text-[#292D2A]/70 pt-2 border-t border-[#E9E5DC]/80 leading-relaxed">
                 Guiding land acquisition, master planning, and engineering
-                oversight across Vrajraj developments in Gujarat.
+                oversight for Vrajraj developments in Khargone, Madhya Pradesh.
               </p>
             </div>
 
@@ -67,17 +67,15 @@ const DirectorPage = ({ onNavigate, onOpenEnquiry }) => {
                 Building with Integrity: A Lifetime Responsibility
               </h2>
               <p className="text-base sm:text-lg text-[#234C3B] font-medium leading-relaxed italic border-l-2 border-[#B69A64] pl-4">
-                "When a person invests in a home or a piece of land, they are
-                investing decades of their family's work, aspirations, and hopes
-                for the next generation. That trust must never be taken
-                lightly."
+                "संपूर्ण निर्माण क्षेत्र की सबसे सुंदर, आधुनिक एवं सर्वसुविधायुक्त कॉलोनियों के निर्माता"
               </p>
             </div>
 
             <div className="space-y-5 text-[#292D2A]/85">
               <p>
                 Welcome to Vrajraj Developers. Over the years of developing
-                residential communities and commercial landmarks across Gujarat,
+                residential communities and commercial opportunities in Khargone,
+                Madhya Pradesh,
                 our core belief has remained grounded: a developer is not merely
                 a vendor of square feet, but a custodian of community
                 well-being.

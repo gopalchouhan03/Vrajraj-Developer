@@ -359,9 +359,9 @@ const ContactPage = () => {
             We Welcome Your Visit
           </h3>
           <p className="text-xs sm:text-sm text-[#DCE5D9] max-w-xl mx-auto leading-relaxed font-light">
-            Whether you want to inspect ongoing structural progress, review
-            certified title deed papers, or discuss a custom requirement, our
-            senior advisors are ready to assist.
+            Whether you want to learn about a listed development, request
+            available project documents, or discuss a custom requirement, our
+            advisors are ready to assist.
           </p>
           <div className="pt-2 flex justify-center gap-3">
             <a

@@ -1,10 +1,26 @@
 import { useEffect, useRef, useState } from "react";
-import { Phone, MapPin, ArrowUp, ShieldCheck } from "lucide-react";
-import { COMPANY_DETAILS, PROJECTS_DATA } from "../data/projectsData";
+import {
+  Phone,
+  MapPin,
+  ArrowUp,
+  ShieldCheck,
+  Instagram,
+  Facebook,
+  Youtube,
+} from "lucide-react";
+import {
+  COMPANY_DETAILS,
+  GROUP_DEVELOPED_PROJECTS,
+  PROJECTS_DATA,
+} from "../data/projectsData";
 const Footer = ({ onNavigate, onOpenEnquiry }) => {
   const [showLegalModal, setShowLegalModal] = useState(null);
   const [loadBackgroundVideo, setLoadBackgroundVideo] = useState(false);
+  const [activeVideoIndex, setActiveVideoIndex] = useState(0);
+  const [isVideoCrossfading, setIsVideoCrossfading] = useState(false);
   const footerRef = useRef(null);
+  const backgroundVideoRefs = useRef([]);
+  const isVideoCrossfadingRef = useRef(false);
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -31,6 +47,79 @@ const Footer = ({ onNavigate, onOpenEnquiry }) => {
     observer.observe(footer);
     return () => observer.disconnect();
   }, []);
+  useEffect(() => {
+    if (!loadBackgroundVideo) return;
+
+    const activeVideo = backgroundVideoRefs.current[activeVideoIndex];
+    const incomingVideo = backgroundVideoRefs.current[1 - activeVideoIndex];
+    if (!activeVideo || !incomingVideo) return;
+
+    let frameId;
+    const crossfadeDuration = 0.5;
+    const startCrossfade = () => {
+      if (isVideoCrossfadingRef.current) return;
+
+      isVideoCrossfadingRef.current = true;
+      setIsVideoCrossfading(true);
+      incomingVideo.currentTime = 0;
+      incomingVideo.play().catch((error) => {
+        console.error("Footer background video could not start.", error);
+        isVideoCrossfadingRef.current = false;
+        setIsVideoCrossfading(false);
+      });
+    };
+    const checkForCrossfade = () => {
+      if (
+        activeVideo.duration &&
+        activeVideo.currentTime >= activeVideo.duration - crossfadeDuration
+      ) {
+        startCrossfade();
+      }
+    };
+    const checkPlaybackPosition = () => {
+      checkForCrossfade();
+
+      if (!isVideoCrossfadingRef.current) {
+        frameId = requestAnimationFrame(checkPlaybackPosition);
+      }
+    };
+    const handleEnded = async () => {
+      if (!isVideoCrossfadingRef.current) {
+        incomingVideo.currentTime = 0;
+        try {
+          await incomingVideo.play();
+        } catch (error) {
+          console.error("Footer background video could not continue.", error);
+          activeVideo.currentTime = 0;
+          activeVideo.play().catch((playError) => {
+            console.error("Footer background video could not restart.", playError);
+          });
+          return;
+        }
+      }
+
+      activeVideo.pause();
+      activeVideo.currentTime = 0;
+      isVideoCrossfadingRef.current = false;
+      setIsVideoCrossfading(false);
+      setActiveVideoIndex(1 - activeVideoIndex);
+    };
+
+    activeVideo.addEventListener("ended", handleEnded);
+    activeVideo.addEventListener("timeupdate", checkForCrossfade);
+    if (activeVideo.paused) {
+      activeVideo.play().catch((error) => {
+        console.error("Footer background video could not autoplay.", error);
+      });
+    }
+    frameId = requestAnimationFrame(checkPlaybackPosition);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      activeVideo.removeEventListener("ended", handleEnded);
+      activeVideo.removeEventListener("timeupdate", checkForCrossfade);
+    };
+  }, [activeVideoIndex, loadBackgroundVideo]);
   return (
     <>
       <footer
@@ -45,21 +134,29 @@ const Footer = ({ onNavigate, onOpenEnquiry }) => {
           decoding="async"
           className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-center"
         />
-        {loadBackgroundVideo && (
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="none"
-            poster="/assets/images/footer-aerial-poster.webp"
-            aria-hidden="true"
-            tabIndex={-1}
-            className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover opacity-100"
-          >
-            <source src="/assets/videos/footer-aerial.mp4" type="video/mp4" />
-          </video>
-        )}
+        {loadBackgroundVideo &&
+          [0, 1].map((videoIndex) => (
+            <video
+              key={videoIndex}
+              ref={(video) => {
+                backgroundVideoRefs.current[videoIndex] = video;
+              }}
+              autoPlay={videoIndex === 0}
+              muted
+              playsInline
+              preload="auto"
+              poster="/assets/images/footer-aerial-poster.webp"
+              aria-hidden="true"
+              tabIndex={-1}
+              className={`pointer-events-none absolute inset-0 z-0 h-full w-full object-cover transition-opacity duration-500 ${
+                videoIndex === activeVideoIndex || isVideoCrossfading
+                  ? "opacity-100"
+                  : "opacity-0"
+              }`}
+            >
+              <source src="/assets/videos/footer-aerial.mp4" type="video/mp4" />
+            </video>
+          ))}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 z-0 bg-[#183225]/65"
@@ -76,9 +173,9 @@ const Footer = ({ onNavigate, onOpenEnquiry }) => {
                 className="h-[84px] w-[96px] rounded-md bg-white p-1.5 object-contain"
               />
               <p className="text-sm text-[#DCE5D9] leading-relaxed max-w-sm">
-                Built on enduring values of structural integrity, clear property
-                titles, and thoughtful planning. Developing residential
-                communities and commercial spaces in Gujarat.
+                Built on enduring values of structural integrity, transparent
+                project information, and thoughtful planning. View our listed
+                projects in Khargone, Madhya Pradesh.
               </p>
               <div className="pt-2">
                 <button
@@ -87,6 +184,36 @@ const Footer = ({ onNavigate, onOpenEnquiry }) => {
                 >
                   SCHEDULE A SITE VISIT
                 </button>
+              </div>
+
+              <div className="flex items-center gap-3 pt-1">
+                <a
+                  href="https://www.instagram.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:bg-[#B69A64] hover:text-[#234C3B]"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="h-4 w-4" />
+                </a>
+                <a
+                  href="https://www.facebook.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:bg-[#B69A64] hover:text-[#234C3B]"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="h-4 w-4" />
+                </a>
+                <a
+                  href="https://www.youtube.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:bg-[#B69A64] hover:text-[#234C3B]"
+                  aria-label="YouTube"
+                >
+                  <Youtube className="h-4 w-4" />
+                </a>
               </div>
             </div>
 
@@ -169,16 +296,43 @@ const Footer = ({ onNavigate, onOpenEnquiry }) => {
                       }}
                       className="text-left hover:text-white transition-colors flex items-center justify-between w-full group cursor-pointer"
                     >
-                      <span className="truncate group-hover:underline">
+                      <span className="min-w-0 truncate group-hover:underline">
                         {proj.name}
-                      </span>
-                      <span className="text-[11px] text-[#B69A64] shrink-0 ml-2">
-                        {proj.status}
+                        {proj.nameHindi && (
+                          <span className="ml-2 text-xs text-[#DCE5D9]/70">
+                            {proj.nameHindi}
+                          </span>
+                        )}
                       </span>
                     </button>
                   </li>
                 ))}
               </ul>
+              <div className="border-t border-white/10 pt-3">
+                <h5 className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-[#B69A64]">
+                  Group Developed Projects
+                </h5>
+                <ul className="space-y-1.5 text-xs text-[#DCE5D9]/85">
+                  {GROUP_DEVELOPED_PROJECTS.map((project) => (
+                    <li key={project.id}>
+                      <button
+                        onClick={() => {
+                          onNavigate("project-detail", project.slug);
+                          scrollToTop();
+                        }}
+                        className="text-left hover:text-white transition-colors cursor-pointer"
+                      >
+                        {project.name}
+                        {project.nameHindi && (
+                          <span className="ml-2 text-[#DCE5D9]/65">
+                            {project.nameHindi}
+                          </span>
+                        )}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
 
             {/* Col 4: Corporate Office & Direct Contacts */}
@@ -225,7 +379,7 @@ const Footer = ({ onNavigate, onOpenEnquiry }) => {
               <span className="hidden sm:inline">·</span>
               <span className="flex items-center gap-1 text-[#DCE5D9]">
                 <ShieldCheck className="w-3.5 h-3.5 text-[#B69A64]" />
-                RERA Compliant Projects
+                MP RERA details pending verification
               </span>
             </div>
 
@@ -272,17 +426,19 @@ const Footer = ({ onNavigate, onOpenEnquiry }) => {
               {showLegalModal === "disclaimer" ? (
                 <>
                   <p>
-                    All project specifications, plans, elevations, amenities,
-                    and details shown on this website are indicative and subject
-                    to approval of relevant government authorities under Gujarat
-                    Real Estate Regulatory Authority (GujRERA).
+                    Project locations shown here are city-level references in
+                    Khargone, Madhya Pradesh. Exact site addresses, land-title
+                    documents, approvals, and MP RERA registration details for
+                    each development are pending confirmation by the developer.
                   </p>
                   <p>
-                    Prospective purchasers are requested to verify project
-                    details, sanctioned building plans, carpet areas, and
-                    statutory approvals with our registered sales
-                    representatives or directly on the official GujRERA portal
-                    prior to entering into any agreement.
+                    Verify applicable requirements under the Real Estate
+                    (Regulation and Development) Act, 2016, the applicable
+                    Madhya Pradesh rules, and all project approvals directly
+                    with the Madhya Pradesh Real Estate Regulatory Authority
+                    (MP RERA) and other competent local authorities before
+                    making a booking or payment. Do not rely on this website as
+                    proof of registration or approval.
                   </p>
                   <p>
                     This website does not constitute an offer, contract, or

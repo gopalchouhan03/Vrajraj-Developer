@@ -10,27 +10,17 @@ import {
   Play,
   Pause,
 } from "lucide-react";
-import { COMPANY_DETAILS, PROJECTS_DATA } from "../data/projectsData";
+import {
+  COMPANY_DETAILS,
+  GROUP_DEVELOPED_PROJECTS,
+  PROJECTS_DATA,
+} from "../data/projectsData";
 import { ImageWithSkeleton } from "../components/ImageWithSkeleton";
 
-const completedProjects = PROJECTS_DATA.filter(
-  (project) => project.status === "Completed",
-);
-const currentProjects = PROJECTS_DATA.filter(
-  (project) => project.status !== "Completed",
-);
-const portfolioCategories = new Set(
-  PROJECTS_DATA.map((project) => project.category),
-);
-const representedStates = new Set([
-  COMPANY_DETAILS.corporateOffice.state,
-  ...PROJECTS_DATA.map((project) => project.state),
-]);
 const portfolioStats = [
-  { value: PROJECTS_DATA.length, label: "Projects in our portfolio" },
-  { value: completedProjects.length, label: "Completed projects" },
-  { value: portfolioCategories.size, label: "Project categories" },
-  { value: representedStates.size, label: "States represented" },
+  { value: PROJECTS_DATA.length, label: "Vrajraj projects" },
+  { value: GROUP_DEVELOPED_PROJECTS.length, label: "Group-developed projects" },
+  { value: 1, label: "City represented · Khargone" },
 ];
 
 const HomePage = ({ onNavigate, onOpenEnquiry }) => {
@@ -219,66 +209,7 @@ const HomePage = ({ onNavigate, onOpenEnquiry }) => {
       </section>
 
       {/* =========================================================================
-       C. Completed project photo gallery
-       ========================================================================= */}
-      {completedProjects.map((project) => (
-        <section
-          key={project.id}
-          className="bg-white py-8 sm:py-10"
-          aria-labelledby={`completed-${project.id}`}
-        >
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="mb-6 flex flex-col justify-between gap-4 sm:mb-8 sm:flex-row sm:items-end">
-              <div>
-                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#66804B]">
-                  Our projects · completed
-                </span>
-                <h2
-                  id={`completed-${project.id}`}
-                  className="mt-1 font-heading text-2xl font-semibold text-[#234C3B] sm:text-3xl"
-                >
-                  {project.name}
-                </h2>
-                <p className="mt-1 text-sm text-[#292D2A]/70">
-                  {project.location}, {project.city}
-                </p>
-              </div>
-              <button
-                onClick={() => {
-                  onNavigate("project-detail", project.slug);
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
-                className="inline-flex w-fit items-center gap-2 rounded-full border border-[#D5DDCA] px-4 py-2 text-xs font-semibold text-[#234C3B] transition-colors hover:border-[#73952E] hover:bg-[#F0F4EC] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#356B4D]"
-              >
-                View project details
-                <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
-              </button>
-            </div>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {project.galleryImages.map((image, index) => (
-                <figure
-                  key={image.url}
-                  className={`group relative overflow-hidden rounded-sm bg-[#E9E5DC] ${index === 0 ? "sm:col-span-2 lg:col-span-1" : ""}`}
-                >
-                  <ImageWithSkeleton
-                    src={image.url}
-                    alt={image.caption}
-                    loading="lazy"
-                    className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    containerClassName="w-full"
-                  />
-                  <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#12251b]/80 to-transparent px-4 pb-3 pt-10 text-xs text-white">
-                    {image.category}
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-          </div>
-        </section>
-      ))}
-
-      {/* =========================================================================
-       D. Portfolio snapshot
+       C. Portfolio snapshot
        ========================================================================= */}
       <section
         aria-label="Vrajraj Developers portfolio overview"
@@ -293,7 +224,7 @@ const HomePage = ({ onNavigate, onOpenEnquiry }) => {
               "radial-gradient(ellipse at 8% 50%, #73952E 0, transparent 44%), radial-gradient(ellipse at 92% 0%, #356B4D 0, transparent 36%)",
           }}
         />
-        <div className="relative mx-auto grid max-w-7xl grid-cols-2 gap-4 px-4 sm:gap-6 sm:px-6 lg:grid-cols-4 lg:px-8">
+        <div className="relative mx-auto grid max-w-7xl grid-cols-2 gap-4 px-4 sm:gap-6 sm:px-6 lg:grid-cols-3 lg:px-8">
           {portfolioStats.map((stat, index) => (
             <div
               key={stat.label}
@@ -314,17 +245,16 @@ const HomePage = ({ onNavigate, onOpenEnquiry }) => {
       </section>
 
       {/* =========================================================================
-       E. Ongoing and upcoming developments
+       D. Vrajraj project portfolio
        ========================================================================= */}
-      {currentProjects.length > 0 && (
-        <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
           <div className="mb-6 flex flex-col justify-between gap-4 border-b border-[#E9E5DC] pb-4 sm:mb-8 sm:flex-row sm:items-end">
             <div>
               <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#66804B]">
-                Our projects · in progress
+                Vrajraj Developers · Khargone
               </span>
               <h2 className="mt-1 font-heading text-2xl font-semibold text-[#234C3B] sm:text-3xl">
-                Taking shape for what comes next.
+                Our Projects
               </h2>
             </div>
             <button
@@ -339,7 +269,7 @@ const HomePage = ({ onNavigate, onOpenEnquiry }) => {
             </button>
           </div>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {currentProjects.map((project) => (
+            {PROJECTS_DATA.map((project) => (
               <button
                 key={project.id}
                 onClick={() => {
@@ -351,13 +281,13 @@ const HomePage = ({ onNavigate, onOpenEnquiry }) => {
                 <div className="relative aspect-[16/10] overflow-hidden bg-[#E9E5DC]">
                   <ImageWithSkeleton
                     src={project.coverImage}
-                    alt={`${project.name} project`}
+                    alt={`Representative image, not confirmed project photography, for ${project.name}`}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     containerClassName="absolute inset-0"
                   />
-                  <span className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-[#234C3B]">
-                    {project.status}
+                  <span className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-[10px] font-semibold tracking-wide text-[#234C3B]">
+                    Representative image
                   </span>
                 </div>
                 <div className="flex items-center justify-between gap-3 px-4 py-4">
@@ -365,13 +295,16 @@ const HomePage = ({ onNavigate, onOpenEnquiry }) => {
                     <h3 className="truncate font-heading text-lg font-semibold text-[#234C3B]">
                       {project.name}
                     </h3>
+                    <p className="truncate text-sm text-[#292D2A]/70">
+                      {project.nameHindi}
+                    </p>
                     <p className="mt-1 flex items-center gap-1 text-xs text-[#292D2A]/65">
                       <MapPin
                         aria-hidden="true"
                         className="h-3.5 w-3.5 shrink-0 text-[#66804B]"
                       />
                       <span className="truncate">
-                        {project.location}, {project.city}
+                        {project.city}, {project.state}
                       </span>
                     </p>
                   </div>
@@ -383,8 +316,33 @@ const HomePage = ({ onNavigate, onOpenEnquiry }) => {
               </button>
             ))}
           </div>
-        </section>
-      )}
+          <div className="mt-7 border-t border-[#E9E5DC] pt-5">
+            <h3 className="font-heading text-lg font-semibold text-[#234C3B]">
+              Group Developed Projects
+            </h3>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {GROUP_DEVELOPED_PROJECTS.map((project) => (
+                <li key={project.id}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onNavigate("project-detail", project.slug);
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className="rounded-full border border-[#E9E5DC] bg-white px-4 py-2 text-sm text-[#234C3B] transition-colors hover:border-[#356B4D] hover:bg-[#F7F6F0] cursor-pointer"
+                  >
+                    {project.name}
+                    {project.nameHindi && (
+                      <span className="ml-2 text-[#292D2A]/65">
+                        {project.nameHindi}
+                      </span>
+                    )}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+      </section>
 
       {/* =========================================================================
        B. A concise introduction to Vrajraj Developers
@@ -395,7 +353,7 @@ const HomePage = ({ onNavigate, onOpenEnquiry }) => {
             <div className="aspect-[16/10]">
               <img
                 src="/assets/images/hero_vrajraj_garden_1792732219280.jpg"
-                alt="A landscaped outdoor space in a Vrajraj residential development"
+                alt="Representative landscaped property image, not confirmed project photography"
                 loading="lazy"
                 className="h-full w-full object-cover"
               />
@@ -410,9 +368,9 @@ const HomePage = ({ onNavigate, onOpenEnquiry }) => {
               Thoughtfully planned. Built for the way people live.
             </h2>
             <p className="max-w-xl text-sm leading-relaxed text-[#292D2A]/80 sm:text-base">
-              We bring considered planning, quality construction, and clear
-              communication together to create residential, commercial, and
-              plotted developments for growing communities.
+              We aim to bring considered planning and clear communication to
+              the projects we develop in Khargone, Madhya Pradesh. Ask our team
+              for verified information about each project.
             </p>
             <button
               onClick={() => {
@@ -496,8 +454,8 @@ const HomePage = ({ onNavigate, onOpenEnquiry }) => {
                 Customer Transparency
               </h3>
               <p className="text-xs sm:text-sm text-[#292D2A]/80 leading-relaxed">
-                100% legal title vetting, clear municipal and RERA approvals
-                made available to prospective buyers without ambiguity.
+                Project-specific title records and applicable Madhya Pradesh
+                approvals are to be verified before purchase.
               </p>
             </div>
 
@@ -597,9 +555,8 @@ const HomePage = ({ onNavigate, onOpenEnquiry }) => {
               Looking for the Right Property?
             </h2>
             <p className="text-sm sm:text-base text-[#DCE5D9] leading-relaxed max-w-2xl font-light">
-              Tell us what you are looking for, and our team will help you
-              explore the available residential apartments, plotted villa land,
-              or commercial spaces.
+              Tell us what you are looking for, and our team will share
+              confirmed information about our listed projects.
             </p>
 
             <div className="pt-3 flex flex-wrap items-center gap-4">

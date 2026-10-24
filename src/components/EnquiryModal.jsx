@@ -133,9 +133,10 @@ const EnquiryModal = ({ isOpen, onClose, defaultProjectName }) => {
               <p className="text-sm text-[#292D2A]/85 leading-relaxed max-w-md mx-auto">
                 Thank you,{" "}
                 <strong className="text-[#234C3B]">{fullName}</strong>. Our
-                dedicated property consultant will get in touch with you at{" "}
+                property consultant will get in touch with you at{" "}
                 <strong className="tabular-nums">{phone}</strong> within 24
-                business hours to share floor plans and schedule a site visit.
+                business hours to share available project information and
+                schedule a site visit.
               </p>
 
               <div className="pt-4 border-t border-[#E9E5DC] flex flex-col sm:flex-row gap-3 justify-center">
@@ -159,8 +160,8 @@ const EnquiryModal = ({ isOpen, onClose, defaultProjectName }) => {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <p className="text-xs sm:text-sm text-[#292D2A]/80 leading-relaxed">
-                Provide your contact details below to receive sanctioned plans,
-                pricing structures, and schedule an on-site project walk.
+                Provide your contact details to request available project
+                information, pricing, and a site visit.
               </p>
 
               {/* Full Name */}
@@ -248,7 +249,8 @@ const EnquiryModal = ({ isOpen, onClose, defaultProjectName }) => {
                 >
                   {PROJECTS_DATA.map((proj) => (
                     <option key={proj.id} value={proj.name}>
-                      {proj.name} ({proj.category} · {proj.location})
+                      {proj.name}
+                      {proj.nameHindi ? ` · ${proj.nameHindi}` : ""}
                     </option>
                   ))}
                   <option value="General Property Consultation">
@@ -267,7 +269,7 @@ const EnquiryModal = ({ isOpen, onClose, defaultProjectName }) => {
                   rows={2}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="e.g. Inquiring for 3 BHK corner apartment or looking to visit this Saturday"
+                  placeholder="Tell us which project information you would like"
                   className="w-full px-3.5 py-2.5 text-sm bg-white border border-[#E9E5DC] rounded-sm focus:outline-none focus:ring-1 focus:ring-[#356B4D] focus:border-[#356B4D] transition-colors resize-none"
                 />
               </div>

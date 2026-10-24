@@ -23,8 +23,8 @@ const AboutPage = ({ onNavigate, onOpenEnquiry }) => {
           </h1>
           <p className="mt-4 text-base sm:text-lg text-[#292D2A]/85 max-w-3xl leading-relaxed font-light">
             An established Indian real estate development firm rooted in
-            architectural thoughtfulness, clear legal titles, and honest
-            craftsmanship across residential, commercial, and plotted sectors.
+            architectural thoughtfulness, transparent project information, and
+            honest craftsmanship for Khargone, Madhya Pradesh.
           </p>
         </div>
 
@@ -59,12 +59,10 @@ const AboutPage = ({ onNavigate, onOpenEnquiry }) => {
               who deliver exactly what is promised on paper.
             </p>
             <p className="text-sm sm:text-base text-[#292D2A]/85 leading-relaxed">
-              From our foundational plotted developments in the peri-urban belts
-              of Gujarat to high-street corporate offices on Sindhu Bhavan Marg
-              and boutique residential towers in Bodakdev, our trajectory has
-              been deliberately measured. We prioritize completing and
-              stabilizing each site to perfection over aggressive speculative
-              expansion.
+              Based in Khargone, Madhya Pradesh, Vrajraj Developers lists
+              projects in the local area. Project locations, approvals,
+              specifications, and availability are confirmed individually with
+              prospective buyers.
             </p>
           </div>
 
@@ -72,7 +70,7 @@ const AboutPage = ({ onNavigate, onOpenEnquiry }) => {
             <div className="aspect-4/3 overflow-hidden rounded-xs border border-[#E9E5DC] bg-[#E9E5DC] shadow-xs">
               <img
                 src="/assets/images/project_residency_1792732222157.jpg"
-                alt="Completed residential development exterior"
+                alt="Representative development image, not confirmed project photography"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover"
               />
@@ -99,10 +97,9 @@ const AboutPage = ({ onNavigate, onOpenEnquiry }) => {
                 Our Vision
               </h3>
               <p className="text-sm sm:text-base text-[#292D2A]/85 leading-relaxed">
-                To be recognized across Western India as the real estate partner
-                of enduring trust — creating sustainable, well-planned
-                residential enclaves and productive commercial landmarks that
-                appreciate in both communal livability and investment value.
+                To be a trusted developer in Khargone, Madhya Pradesh, with
+                thoughtful planning, clear project information, and lasting
+                relationships with the communities we serve.
               </p>
             </div>
 
@@ -177,9 +174,9 @@ const AboutPage = ({ onNavigate, onOpenEnquiry }) => {
               Transparency
             </h4>
             <p className="text-xs sm:text-sm text-[#292D2A]/80 leading-relaxed">
-              Clear title deed reports, open RERA documentation, exact payment
-              milestones linked to physical construction progress, and zero
-              hidden levies.
+              Clear project documentation, applicable Madhya Pradesh RERA
+              information, and payment terms shared for review before a
+              commitment.
             </p>
           </div>
 
@@ -283,29 +280,21 @@ const AboutPage = ({ onNavigate, onOpenEnquiry }) => {
               Presence & Locations
             </span>
             <h2 className="text-2xl sm:text-3xl font-bold text-[#234C3B]">
-              Active Across Gujarat’s Prime Urban Growth Nodes
+              Focused on Khargone, Madhya Pradesh
             </h2>
             <p className="text-sm text-[#292D2A]/85 leading-relaxed">
-              We concentrate our developments in strategic micro-markets with
-              verified civic infrastructure, reliable municipal water
-              connections, and direct connectivity to arterial transit rings.
+              Our current project listings are located in Khargone. Exact
+              project sites, infrastructure details, and statutory approvals
+              are subject to confirmation.
             </p>
             <div className="pt-2 space-y-2 text-xs sm:text-sm text-[#292D2A]/80">
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-[#356B4D]" />
-                <span>Bodakdev & SG Highway Extension, Ahmedabad</span>
+                <span>Khargone, Madhya Pradesh</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-[#356B4D]" />
-                <span>Sindhu Bhavan Corporate Corridor, Ahmedabad</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#356B4D]" />
-                <span>Shela – Sanand Green Belt Plotted Corridors</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#356B4D]" />
-                <span>Vasna – Bhayli Road, Vadodara</span>
+                <span>Project-specific sites and details available on request</span>
               </div>
             </div>
           </div>
@@ -314,7 +303,7 @@ const AboutPage = ({ onNavigate, onOpenEnquiry }) => {
             <div className="aspect-4/3 overflow-hidden rounded-xs border border-[#E9E5DC] bg-[#E9E5DC]">
               <img
                 src="/assets/images/project_commercial_1792732223227.jpg"
-                alt="Commercial landmark facade"
+                alt="Representative development image, not confirmed project photography"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover"
               />
@@ -322,7 +311,7 @@ const AboutPage = ({ onNavigate, onOpenEnquiry }) => {
             <div className="aspect-4/3 overflow-hidden rounded-xs border border-[#E9E5DC] bg-[#E9E5DC]">
               <img
                 src="/assets/images/project_greens_1792732221978.jpg"
-                alt="Plotted gated community avenue"
+                alt="Representative development image, not confirmed project photography"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover"
               />
@@ -332,7 +321,125 @@ const AboutPage = ({ onNavigate, onOpenEnquiry }) => {
       </section>
 
       {/* =========================================================================
-       H. CTA
+       H. Awards & Achievements
+       ========================================================================= */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-2xl mb-10">
+          <span className="text-xs font-bold uppercase tracking-widest text-[#356B4D] block mb-2">
+            Milestones
+          </span>
+          <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#234C3B]">
+            Awards & Achievements
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            {
+              title: "GRI Real Estate India 2025",
+              text: "Real Estate Leadership Impact Award presented to Shri Vrajraj Developers.",
+              image: "/assets/images/gri-real-estate-award-2025.png",
+            },
+            {
+              title: "Award Trophy",
+              text: "Award image shared by Vrajraj Developers.",
+              image: "/assets/images/award-trophy.png",
+            },
+            {
+              title: "Recognition Plaque",
+              text: "Recognition plaque image shared by Vrajraj Developers.",
+              image: "/assets/images/award-plaque.png",
+            },
+          ].map((item) => (
+            <div
+              key={item.title}
+              className="group overflow-hidden rounded-xs border border-[#E9E5DC] bg-white shadow-xs transition-all duration-500 hover:-translate-y-2 hover:shadow-xl"
+            >
+              <div className="overflow-hidden bg-[#F7F6F0]">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  loading="lazy"
+                  className="h-52 w-full object-contain p-3 transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-[#234C3B]">{item.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-[#292D2A]/80">
+                  {item.text}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* =========================================================================
+       I. Team Members
+       ========================================================================= */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-2xl mb-10">
+          <span className="text-xs font-bold uppercase tracking-widest text-[#356B4D] block mb-2">
+            Leadership Team
+          </span>
+          <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#234C3B]">
+            Meet the People Behind Vrajraj
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[
+            {
+              name: "Vallabh Mahajan",
+              title: "Director",
+              bio: "Guiding project vision, market planning, and strategic growth across Vrajraj developments.",
+              image: "/assets/images/director_portrait_1792732221245.jpg",
+              accent: "#356B4D",
+            },
+            {
+              name: "Gopal Mahajan",
+              title: "Director",
+              bio: "Leading operational execution, project coordination, and long-term customer confidence building.",
+              image: "/assets/images/hero_vrajraj_facade_1792732221176.jpg",
+              accent: "#B69A64",
+            },
+            {
+              name: "Project Advisory Team",
+              title: "Customer Success",
+              bio: "Ensuring transparent communication, site guidance, and smooth buyer support throughout each enquiry journey.",
+              image: "/assets/images/project_residency_1792732222157.jpg",
+              accent: "#66804B",
+            },
+          ].map((member, index) => (
+            <div
+              key={member.name}
+              className="group overflow-hidden rounded-xs border border-[#E9E5DC] bg-white shadow-xs transition-all duration-500 hover:-translate-y-2 hover:shadow-xl"
+            >
+              <div className="relative h-72 overflow-hidden bg-[#E9E5DC]">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  referrerPolicy="no-referrer"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" aria-hidden="true" />
+                <div className="absolute bottom-4 left-4 rounded-full border border-white/40 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm">
+                  {member.title}
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-[#234C3B]">{member.name}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-[#292D2A]/80">
+                  {member.bio}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* =========================================================================
+       J. CTA
        ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-[#E9E5DC]/60 border border-[#E9E5DC] rounded-xs p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
@@ -341,8 +448,8 @@ const AboutPage = ({ onNavigate, onOpenEnquiry }) => {
               Ready to Explore Our Portfolio?
             </h3>
             <p className="text-xs sm:text-sm text-[#292D2A]/80 max-w-xl">
-              Browse our currently available 3 & 4 BHK residences, commercial
-              spaces, and vetted plotted lands across Gujarat.
+              Explore the named projects in our portfolio and contact our team
+              for confirmed availability and project information.
             </p>
           </div>
 

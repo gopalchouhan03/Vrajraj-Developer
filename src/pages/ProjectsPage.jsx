@@ -4,41 +4,50 @@ import {
   ArrowRight,
   Search,
   Building2,
-  SlidersHorizontal,
   RotateCcw,
 } from "lucide-react";
-import { PROJECTS_DATA } from "../data/projectsData";
+import {
+  GROUP_DEVELOPED_PROJECTS,
+  PROJECTS_DATA,
+} from "../data/projectsData";
 import { ImageWithSkeleton } from "../components/ImageWithSkeleton";
 const ProjectsPage = ({ onNavigate, onOpenEnquiry }) => {
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedStatus, setSelectedStatus] = useState("All");
-  const [searchQuery, setSearchQuery] = useState("");
-  const categories = [
-    "All",
-    "Residential",
-    "Commercial",
-    "Plotted Development",
-  ];
-  const statuses = ["All", "Ongoing", "Completed", "Upcoming"];
+
+  const categories = ["All", "Residential", "Group Developed"];
+  const statuses = ["All", "Details on request"];
+
+  const combinedProjects = [...PROJECTS_DATA, ...GROUP_DEVELOPED_PROJECTS];
+
   const filteredProjects = useMemo(() => {
-    return PROJECTS_DATA.filter((project) => {
-      if (selectedCategory !== "All" && project.category !== selectedCategory) {
+    return combinedProjects.filter((project) => {
+      const category = project.category || "Residential";
+      const status = project.status || "Details on request";
+
+      if (selectedCategory !== "All" && category !== selectedCategory) {
         return false;
       }
-      if (selectedStatus !== "All" && project.status !== selectedStatus) {
+
+      if (selectedStatus !== "All" && status !== selectedStatus) {
         return false;
       }
+
       if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase();
-        const matchesName = project.name.toLowerCase().includes(query);
-        const matchesLocation = project.location.toLowerCase().includes(query);
-        const matchesCity = project.city.toLowerCase().includes(query);
-        const matchesOverview = project.overview.toLowerCase().includes(query);
+        const matchesName =
+          project.name.toLowerCase().includes(query) ||
+          (project.nameHindi || "").toLowerCase().includes(query);
+        const matchesLocation = (project.location || "").toLowerCase().includes(query);
+        const matchesCity = (project.city || "").toLowerCase().includes(query);
+        const matchesOverview = (project.overview || "").toLowerCase().includes(query);
         return matchesName || matchesLocation || matchesCity || matchesOverview;
       }
       return true;
     });
-  }, [selectedCategory, selectedStatus, searchQuery]);
+  }, [searchQuery, selectedCategory, selectedStatus]);
+
   const handleResetFilters = () => {
     setSelectedCategory("All");
     setSelectedStatus("All");
@@ -56,19 +65,17 @@ const ProjectsPage = ({ onNavigate, onOpenEnquiry }) => {
             Our Projects
           </h1>
           <p className="mt-3 text-sm sm:text-base text-[#292D2A]/80 max-w-2xl leading-relaxed">
-            Explore our developments and find a property that suits your plans.
-            Filter by property type, current construction status, or location
-            across Gujarat.
+            Explore Vrajraj Developers' projects in Khargone, Madhya Pradesh.
+            Site details, project status, and specifications are available on
+            request.
           </p>
         </div>
       </section>
 
-      {/* Filter and Search Bar Section */}
+      {/* Project Search */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white p-5 sm:p-6 rounded-xs border border-[#E9E5DC] shadow-xs space-y-5">
-          {/* Top row: Search input & Status quick toggles */}
           <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-            {/* Search Input */}
             <div className="relative flex-1 max-w-md">
               <Search className="absolute left-3.5 top-3 w-4 h-4 text-[#292D2A]/50" />
               <input
@@ -88,11 +95,9 @@ const ProjectsPage = ({ onNavigate, onOpenEnquiry }) => {
               )}
             </div>
 
-            {/* Results Counter and Reset */}
             <div className="flex items-center justify-between md:justify-end gap-4 text-xs text-[#292D2A]/70">
               <span className="tabular-nums font-medium">
-                Showing {filteredProjects.length} of {PROJECTS_DATA.length}{" "}
-                projects
+                Showing {filteredProjects.length} of {combinedProjects.length} projects
               </span>
               {(selectedCategory !== "All" ||
                 selectedStatus !== "All" ||
@@ -108,9 +113,7 @@ const ProjectsPage = ({ onNavigate, onOpenEnquiry }) => {
             </div>
           </div>
 
-          {/* Bottom row: Category Filter Segmented Control & Status Filter */}
           <div className="pt-4 border-t border-[#E9E5DC] flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-            {/* Category Segmented Buttons */}
             <div className="flex flex-wrap items-center gap-1.5">
               <span className="text-xs font-semibold text-[#292D2A]/70 mr-1 flex items-center gap-1">
                 <Building2 className="w-3.5 h-3.5 text-[#356B4D]" />
@@ -130,10 +133,9 @@ const ProjectsPage = ({ onNavigate, onOpenEnquiry }) => {
               })}
             </div>
 
-            {/* Status Filter Segmented Buttons */}
             <div className="flex flex-wrap items-center gap-1.5">
               <span className="text-xs font-semibold text-[#292D2A]/70 mr-1 flex items-center gap-1">
-                <SlidersHorizontal className="w-3.5 h-3.5 text-[#356B4D]" />
+                <Building2 className="w-3.5 h-3.5 text-[#356B4D]" />
                 Status:
               </span>
               {statuses.map((stat) => {
@@ -190,18 +192,14 @@ const ProjectsPage = ({ onNavigate, onOpenEnquiry }) => {
                   <div className="relative aspect-16/10 overflow-hidden bg-[#E9E5DC]">
                     <ImageWithSkeleton
                       src={project.coverImage}
-                      alt={project.name}
+                      alt={`Representative image, not confirmed project photography, for ${project.name}`}
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-102"
                       containerClassName="absolute inset-0"
                     />
 
-                    {/* Category & Status Overlays */}
-                    <div className="absolute top-3.5 left-3.5 bg-[#234C3B]/90 backdrop-blur-xs text-white text-xs font-medium px-3 py-1 rounded-xs">
-                      {project.category}
-                    </div>
-                    <div className="absolute top-3.5 right-3.5 bg-white/95 text-[#234C3B] text-xs font-semibold px-3 py-1 rounded-xs shadow-xs">
-                      {project.status}
+                    <div className="absolute bottom-3 left-3 rounded-xs bg-[#234C3B]/90 px-3 py-1 text-xs font-medium text-white">
+                      Representative image
                     </div>
                   </div>
 
@@ -211,45 +209,23 @@ const ProjectsPage = ({ onNavigate, onOpenEnquiry }) => {
                     <div className="flex items-center gap-2 text-xs text-[#292D2A]/70">
                       <span className="flex items-center gap-1 font-medium text-[#234C3B]">
                         <MapPin className="w-3.5 h-3.5 text-[#356B4D]" />
-                        {project.location}, {project.city}
+                        {project.city}, {project.state}
                       </span>
-                      {project.reraNumber && (
-                        <>
-                          <span
-                            aria-hidden="true"
-                            className="text-[#292D2A]/30"
-                          >
-                            ·
-                          </span>
-                          <span className="text-[11px] font-mono text-[#292D2A]/60">
-                            RERA Vetted
-                          </span>
-                        </>
-                      )}
                     </div>
 
-                    <h3 className="text-xl sm:text-2xl font-bold text-[#234C3B] group-hover:text-[#356B4D] transition-colors">
-                      {project.name}
-                    </h3>
+                    <div>
+                      <h3 className="text-xl sm:text-2xl font-bold text-[#234C3B] group-hover:text-[#356B4D] transition-colors">
+                        {project.name}
+                      </h3>
+                      <p className="mt-1 text-sm text-[#292D2A]/70">
+                        {project.nameHindi}
+                      </p>
+                    </div>
 
                     <p className="text-xs sm:text-sm text-[#292D2A]/85 line-clamp-2 leading-relaxed">
                       {project.overview}
                     </p>
 
-                    {/* Unit Configurations */}
-                    <div className="pt-2 border-t border-[#E9E5DC]/70">
-                      <span className="text-[11px] font-semibold uppercase tracking-wider text-[#356B4D] block mb-1.5">
-                        Configurations Available
-                      </span>
-                      <ul className="space-y-1 text-xs text-[#292D2A]/80">
-                        {project.unitTypes.slice(0, 2).map((u, i) => (
-                          <li key={i} className="flex items-center gap-1.5">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#B69A64]" />
-                            <span>{u}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
                   </div>
                 </div>
 
@@ -259,7 +235,7 @@ const ProjectsPage = ({ onNavigate, onOpenEnquiry }) => {
                     onClick={() => onOpenEnquiry(project.name)}
                     className="text-xs font-semibold text-[#356B4D] hover:text-[#234C3B] hover:underline cursor-pointer"
                   >
-                    Request Brochure & Price
+                    Request Project Details
                   </button>
 
                   <button
@@ -279,24 +255,59 @@ const ProjectsPage = ({ onNavigate, onOpenEnquiry }) => {
         )}
       </section>
 
+      <section
+        className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
+        aria-labelledby="group-developed-projects"
+      >
+        <div className="border-t border-[#E9E5DC] pt-8">
+          <span className="text-xs font-bold uppercase tracking-widest text-[#356B4D]">
+            Separately listed portfolio
+          </span>
+          <h2
+            id="group-developed-projects"
+            className="mt-1 text-2xl font-bold tracking-tight text-[#234C3B] sm:text-3xl"
+          >
+            Group Developed Projects
+          </h2>
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {GROUP_DEVELOPED_PROJECTS.map((project) => (
+              <button
+                key={project.id}
+                type="button"
+                onClick={() => {
+                  onNavigate("project-detail", project.slug);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className="rounded-xs border border-[#E9E5DC] bg-white px-5 py-4 text-left transition-colors hover:border-[#356B4D] hover:bg-[#F7F6F0] cursor-pointer"
+              >
+                <h3 className="font-semibold text-[#234C3B]">{project.name}</h3>
+                {project.nameHindi && (
+                  <p className="mt-1 text-sm text-[#292D2A]/70">
+                    {project.nameHindi}
+                  </p>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Advisory Assistance Strip */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-[#E9E5DC]/50 border border-[#E9E5DC] rounded-xs p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="text-center md:text-left space-y-1">
             <h4 className="text-base font-bold text-[#234C3B]">
-              Looking for customized plot configurations or corporate floor
-              plates?
+              Need more information about a project?
             </h4>
             <p className="text-xs text-[#292D2A]/80">
-              Our engineering and acquisitions team can discuss ongoing plot
-              demarcations or floor plans.
+              Contact our team for confirmed project details and availability.
             </p>
           </div>
           <button
             onClick={() => onOpenEnquiry()}
             className="px-5 py-2.5 text-xs font-semibold text-white bg-[#234C3B] hover:bg-[#356B4D] rounded-xs transition-colors cursor-pointer shrink-0"
           >
-            Speak to Project Advisory
+            Request Project Information
           </button>
         </div>
       </section>

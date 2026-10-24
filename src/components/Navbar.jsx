@@ -27,8 +27,8 @@ const Navbar = ({ currentPage, onNavigate, onOpenEnquiry }) => {
       <header
         className={`sticky top-0 z-40 w-full transition-all duration-200 ${isScrolled ? "bg-[#ffffff]/90 backdrop-blur-md border-b border-[#E9E5DC] shadow-xs" : "bg-[#ffffff]/80 backdrop-blur-sm border-b border-[#E9E5DC]/60"}`}
       >
-        <div className="max-w-[1280px] mx-auto px-[32px] py-3">
-          <div className="flex items-center justify-between gap-8">
+        <div className="mx-auto max-w-[1280px] px-4 py-2 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between gap-4">
             {/* Brand logo */}
             <button
               onClick={() => handleLinkClick("home")}
@@ -40,12 +40,12 @@ const Navbar = ({ currentPage, onNavigate, onOpenEnquiry }) => {
                 alt="Vrajraj Developers"
                 width="640"
                 height="560"
-                className="logo-intro h-[66px] w-[76px] object-contain transition-opacity group-hover:opacity-85 sm:h-[72px] sm:w-[84px]"
+                className="logo-intro h-12 w-14 object-contain transition-opacity group-hover:opacity-85 sm:h-14 sm:w-16"
               />
             </button>
 
             {/* Primary navigation links */}
-            <nav className="hidden lg:flex items-center gap-8 font-inter text-[14px] font-medium text-[#0f172a]">
+            <nav className="hidden lg:flex items-center gap-6 font-inter text-[13px] font-medium text-[#0f172a]">
               {navLinks.map((link) => {
                 const isActive = currentPage === link.id;
                 return (
@@ -68,7 +68,7 @@ const Navbar = ({ currentPage, onNavigate, onOpenEnquiry }) => {
             <div className="flex items-center gap-3 shrink-0">
               <button
                 onClick={() => onOpenEnquiry()}
-                className="shrink-0 whitespace-nowrap rounded-full bg-[#234C3B] px-6 py-2.5 font-inter text-[14px] font-medium text-white shadow-sm transition-colors duration-200 hover:bg-[#356B4D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#356B4D] focus-visible:ring-offset-2 active:bg-[#1a382b]"
+                className="shrink-0 whitespace-nowrap rounded-full bg-[#234C3B] px-5 py-2 font-inter text-[13px] font-medium text-white shadow-sm transition-colors duration-200 hover:bg-[#356B4D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#356B4D] focus-visible:ring-offset-2 active:bg-[#1a382b]"
               >
                 Find my dream
               </button>

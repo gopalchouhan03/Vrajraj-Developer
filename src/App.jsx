@@ -7,7 +7,7 @@ import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 import { EnquiryModal } from "./components/EnquiryModal";
 import { LogoLoader } from "./components/LogoLoader";
-import { PROJECTS_DATA } from "./data/projectsData";
+import { PROJECTS_DATA, ALL_PROJECTS } from "./data/projectsData";
 
 const HomePage = lazy(() =>
   import("./pages/HomePage.jsx").then(({ HomePage }) => ({
@@ -54,7 +54,7 @@ function App() {
         setCurrentPage("home");
       } else if (hash.startsWith("project/")) {
         const slug = hash.replace("project/", "");
-        const exists = PROJECTS_DATA.find((p) => p.slug === slug);
+        const exists = ALL_PROJECTS.find((p) => p.slug === slug);
         if (exists) {
           setCurrentPage("project-detail");
           setCurrentProjectSlug(slug);
@@ -86,7 +86,7 @@ function App() {
     setIsEnquiryModalOpen(true);
   };
   const currentProject =
-    PROJECTS_DATA.find((p) => p.slug === currentProjectSlug) ||
+    ALL_PROJECTS.find((p) => p.slug === currentProjectSlug) ||
     PROJECTS_DATA[0];
   return (
     <div className="min-h-screen flex flex-col bg-[#F7F6F0] text-[#292D2A]">

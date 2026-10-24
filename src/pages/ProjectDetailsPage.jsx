@@ -22,7 +22,7 @@ const ProjectDetailsPage = ({ project, onNavigate, onOpenEnquiry }) => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [selectedUnit, setSelectedUnit] = useState(
-    project.unitTypes[0] || "Any Configuration",
+    project.unitTypes[0] || "Project details",
   );
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -84,7 +84,7 @@ const ProjectDetailsPage = ({ project, onNavigate, onOpenEnquiry }) => {
     (p) => p.id !== project.id,
   ).slice(0, 2);
   const whatsappMessage = encodeURIComponent(
-    `Hello Vrajraj Developers, I am viewing ${project.name} on your official website and would like to receive the sanctioned floor plans and price sheet. My name is ${fullName || "a prospective buyer"}.`,
+    `Hello Vrajraj Developers, I am viewing ${project.name} on your website and would like to receive available project details and pricing information. My name is ${fullName || "a prospective buyer"}.`,
   );
   return (
     <div className="space-y-16 sm:space-y-24 pb-20">
@@ -105,40 +105,20 @@ const ProjectDetailsPage = ({ project, onNavigate, onOpenEnquiry }) => {
           {/* Hero Metadata and CTAs */}
           <div className="absolute inset-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-10 sm:pb-14">
             <div className="max-w-3xl space-y-3">
-              {/* Clean unboxed metadata with dot separators */}
               <div className="flex flex-wrap items-center gap-2 text-xs text-[#DCE5D9] tracking-wider uppercase font-semibold">
-                <span>{project.category}</span>
-                <span aria-hidden="true" className="text-[#B69A64]">
-                  ·
-                </span>
-                <span className="text-[#B69A64]">{project.status}</span>
-                {project.possessionDate && (
-                  <>
-                    <span aria-hidden="true" className="text-[#B69A64]">
-                      ·
-                    </span>
-                    <span>{project.possessionDate}</span>
-                  </>
-                )}
+                <span>Project details on request</span>
               </div>
 
               <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-white leading-tight">
                 {project.name}
               </h1>
+              <p className="text-lg text-white/85">{project.nameHindi}</p>
 
               <div className="flex items-center gap-2 text-xs sm:text-sm text-[#F7F6F0]/90">
                 <MapPin className="w-4 h-4 text-[#B69A64] shrink-0" />
                 <span>
-                  {project.location}, {project.city}, {project.state}
+                  {project.city}, {project.state}
                 </span>
-                {project.reraNumber && (
-                  <>
-                    <span className="hidden sm:inline text-white/40">|</span>
-                    <span className="hidden sm:inline font-mono text-xs text-[#DCE5D9]/80">
-                      RERA: {project.reraNumber}
-                    </span>
-                  </>
-                )}
               </div>
 
               <p className="text-xs sm:text-base text-[#F7F6F0]/90 leading-relaxed font-light pt-1 max-w-2xl">
@@ -155,15 +135,15 @@ const ProjectDetailsPage = ({ project, onNavigate, onOpenEnquiry }) => {
                   <ArrowRight className="w-4 h-4" />
                 </a>
 
-                <button
-                  onClick={() => openGalleryAt(0)}
-                  className="inline-flex items-center gap-2 px-5 py-3 text-xs sm:text-sm font-semibold text-white border border-white/60 hover:bg-white/10 rounded-sm transition-colors cursor-pointer"
-                >
-                  <Images className="w-4 h-4" />
-                  <span>
-                    View Gallery ({project.galleryImages.length} Photos)
-                  </span>
-                </button>
+                {project.galleryImages.length > 0 && (
+                  <button
+                    onClick={() => openGalleryAt(0)}
+                    className="inline-flex items-center gap-2 px-5 py-3 text-xs sm:text-sm font-semibold text-white border border-white/60 hover:bg-white/10 rounded-sm transition-colors cursor-pointer"
+                  >
+                    <Images className="w-4 h-4" />
+                    <span>View Gallery ({project.galleryImages.length} Photos)</span>
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -191,111 +171,59 @@ const ProjectDetailsPage = ({ project, onNavigate, onOpenEnquiry }) => {
         </nav>
       </div>
 
-      {/* =========================================================================
-       B. Project Film & Image Gallery
-       ========================================================================= */}
+      {/* Project visuals */}
       <section
         className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8"
         aria-labelledby="project-media-heading"
       >
-        <div className="mb-6 flex flex-col justify-between gap-4 border-b border-[#E9E5DC] pb-5 sm:flex-row sm:items-end">
-          <div>
-            <span className="text-xs font-bold uppercase tracking-widest text-[#356B4D] block mb-1">
-              Project Film &amp; Gallery
-            </span>
-            <h2
-              id="project-media-heading"
-              className="text-xl sm:text-3xl font-bold tracking-tight text-[#234C3B]"
-            >
-              Experience {project.name}
-            </h2>
-          </div>
-          <button
-            onClick={() => openGalleryAt(0)}
-            className="inline-flex w-fit items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#234C3B] hover:text-[#356B4D] border-b border-[#234C3B]/40 pb-0.5 cursor-pointer"
+        {project.video && (
+          <video
+            className="mb-6 block max-h-[75vh] w-full rounded-sm bg-[#13281F] object-contain"
+            controls
+            playsInline
+            preload="metadata"
+            poster={project.coverImage}
+            aria-label={`${project.name} project video`}
           >
-            <Images className="w-4 h-4 text-[#356B4D]" />
-            <span>Open Fullscreen Gallery</span>
-          </button>
-        </div>
-
-        <div className="overflow-hidden rounded-sm border border-[#E9E5DC] bg-[#13281F] shadow-sm">
-          <div className="flex max-h-[75vh] min-h-[220px] items-center justify-center">
-            <video
-              className="block h-auto max-h-[75vh] w-full object-contain"
-              autoPlay
-              muted
-              loop
-              controls
-              playsInline
-              preload="auto"
-              poster={project.coverImage}
-              aria-label={`${project.name} project video`}
-            >
-              <source src={project.video} type="video/mp4" />
-              Your browser does not support embedded videos.
-            </video>
-          </div>
-        </div>
-
-        <div className="mb-4 mt-8 flex items-end justify-between gap-4">
-          <div>
-            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#66804B]">
-              Visual Presentation
-            </span>
-            <h3 className="mt-1 text-lg font-bold tracking-tight text-[#234C3B] sm:text-2xl">
-              Project Architectural Gallery
-            </h3>
-          </div>
-          <span className="hidden text-xs text-[#292D2A]/60 sm:inline">
-            {project.galleryImages.length} photographs
-          </span>
-        </div>
-
-        {/* Mosaic Layout: 1 large photo on left, 2 smaller photos on right */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-          {/* Main Large Photo */}
-          <div
-            onClick={() => openGalleryAt(0)}
-            className="md:col-span-8 relative aspect-16/10 overflow-hidden rounded-xs border border-[#E9E5DC] bg-[#E9E5DC] group cursor-pointer"
-          >
-            <img
-              src={project.galleryImages[0]?.url || project.coverImage}
-              alt={project.galleryImages[0]?.caption || project.name}
-              referrerPolicy="no-referrer"
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-102"
-            />
-            <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
-            <div className="absolute bottom-3 left-3 bg-[#234C3B]/90 backdrop-blur-xs text-white text-xs px-3 py-1.5 rounded-xs">
-              {project.galleryImages[0]?.caption}
-            </div>
-            <div className="absolute top-3 right-3 bg-white/95 text-[#234C3B] text-xs font-semibold px-2.5 py-1 rounded-xs shadow-xs">
-              Click to Enlarge
-            </div>
-          </div>
-
-          {/* Supporting Thumbnails Stack */}
-          <div className="md:col-span-4 grid grid-cols-2 md:grid-cols-1 gap-4">
-            {project.galleryImages.slice(1, 3).map((img, idx) => (
-              <div
-                key={idx}
-                onClick={() => openGalleryAt(idx + 1)}
-                className="relative aspect-16/10 overflow-hidden rounded-xs border border-[#E9E5DC] bg-[#E9E5DC] group cursor-pointer"
+            <source src={project.video} type="video/mp4" />
+            Your browser does not support embedded videos.
+          </video>
+        )}
+        {project.galleryImages.length > 0 ? (
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
+            {project.galleryImages.slice(0, 3).map((image, index) => (
+              <button
+                key={image.url}
+                type="button"
+                onClick={() => openGalleryAt(index)}
+                className={`${index === 0 ? "md:col-span-8" : "md:col-span-4"} group relative aspect-[16/10] overflow-hidden rounded-xs border border-[#E9E5DC]`}
               >
                 <img
-                  src={img.url}
-                  alt={img.caption}
+                  src={image.url}
+                  alt={image.caption}
                   referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-103"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-102"
                 />
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
-                <div className="absolute bottom-2 left-2 right-2 truncate bg-[#234C3B]/85 text-white text-[11px] px-2 py-1 rounded-xs">
-                  {img.caption}
-                </div>
-              </div>
+                <span className="absolute bottom-3 left-3 rounded-xs bg-[#234C3B]/90 px-3 py-1.5 text-xs text-white">
+                  {image.caption}
+                </span>
+              </button>
             ))}
           </div>
-        </div>
+        ) : (
+          <figure className="relative overflow-hidden rounded-sm border border-[#E9E5DC] bg-[#E9E5DC]">
+            <img
+              src={project.coverImage}
+              alt={`Representative image, not confirmed project photography, for ${project.name}`}
+              referrerPolicy="no-referrer"
+              className="aspect-[16/9] w-full object-cover"
+            />
+            <figcaption className="bg-white px-4 py-3 text-xs text-[#292D2A]/70">
+              Representative image only. Project-specific photos and videos
+              have not yet been provided.
+            </figcaption>
+          </figure>
+        )}
       </section>
 
       {/* =========================================================================
@@ -324,92 +252,96 @@ const ProjectDetailsPage = ({ project, onNavigate, onOpenEnquiry }) => {
               )}
             </div>
 
-            {/* Unit Configurations */}
-            <div className="space-y-4 border-t border-[#E9E5DC] pt-8">
-              <h3 className="text-lg sm:text-xl font-bold text-[#234C3B]">
-                Available Configurations & Typologies
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {project.unitTypes.map((unit, idx) => (
-                  <div
-                    key={idx}
-                    className="p-4 bg-white rounded-xs border border-[#E9E5DC] flex items-center justify-between shadow-xs"
-                  >
-                    <span className="text-xs sm:text-sm font-semibold text-[#292D2A]">
-                      {unit}
-                    </span>
-                    <span className="text-[11px] text-[#356B4D] uppercase font-bold tracking-wider">
-                      Sanctioned
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Key Features */}
-            <div className="space-y-4 border-t border-[#E9E5DC] pt-8">
-              <h3 className="text-lg sm:text-xl font-bold text-[#234C3B]">
-                Planning & Architectural Highlights
-              </h3>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {project.features.map((feat, idx) => (
-                  <li
-                    key={idx}
-                    className="flex items-start gap-2.5 text-xs sm:text-sm text-[#292D2A]/85"
-                  >
-                    <CheckCircle className="w-4 h-4 text-[#356B4D] shrink-0 mt-0.5" />
-                    <span>{feat}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Amenities Grid */}
-            <div className="space-y-4 border-t border-[#E9E5DC] pt-8">
-              <h3 className="text-lg sm:text-xl font-bold text-[#234C3B]">
-                Curated Amenities
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {project.amenities.map((amenity, idx) => (
-                  <div
-                    key={idx}
-                    className="p-5 bg-white rounded-xs border border-[#E9E5DC] space-y-1.5 shadow-xs"
-                  >
-                    <div className="flex items-center gap-2 text-sm font-bold text-[#234C3B]">
-                      <Compass className="w-4 h-4 text-[#356B4D]" />
-                      <span>{amenity.name}</span>
-                    </div>
-                    <p className="text-xs text-[#292D2A]/80 leading-relaxed">
-                      {amenity.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Specifications Table */}
-            <div className="space-y-4 border-t border-[#E9E5DC] pt-8">
-              <h3 className="text-lg sm:text-xl font-bold text-[#234C3B]">
-                Technical & Construction Specifications
-              </h3>
-              <div className="bg-white rounded-xs border border-[#E9E5DC] overflow-hidden shadow-xs">
-                <dl className="divide-y divide-[#E9E5DC]">
-                  {project.specifications.map((spec, idx) => (
+            {project.unitTypes.length > 0 && (
+              <div className="space-y-4 border-t border-[#E9E5DC] pt-8">
+                <h3 className="text-lg sm:text-xl font-bold text-[#234C3B]">
+                  Available Configurations &amp; Typologies
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {project.unitTypes.map((unit, idx) => (
                     <div
                       key={idx}
-                      className="px-5 py-3.5 sm:grid sm:grid-cols-3 sm:gap-4 text-xs sm:text-sm"
+                      className="p-4 bg-white rounded-xs border border-[#E9E5DC] shadow-xs"
                     >
-                      <dt className="font-semibold text-[#234C3B]">
-                        {spec.label}
-                      </dt>
-                      <dd className="mt-1 sm:mt-0 sm:col-span-2 text-[#292D2A]/85">
-                        {spec.value}
-                      </dd>
+                      <span className="text-xs sm:text-sm font-semibold text-[#292D2A]">
+                        {unit}
+                      </span>
                     </div>
                   ))}
-                </dl>
+                </div>
               </div>
-            </div>
+            )}
+
+            {/* Key Features */}
+            {project.features.length > 0 && (
+              <div className="space-y-4 border-t border-[#E9E5DC] pt-8">
+                <h3 className="text-lg sm:text-xl font-bold text-[#234C3B]">
+                  Planning &amp; Architectural Highlights
+                </h3>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {project.features.map((feat, idx) => (
+                    <li
+                      key={idx}
+                      className="flex items-start gap-2.5 text-xs sm:text-sm text-[#292D2A]/85"
+                    >
+                      <CheckCircle className="w-4 h-4 text-[#356B4D] shrink-0 mt-0.5" />
+                      <span>{feat}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Amenities Grid */}
+            {project.amenities.length > 0 && (
+              <div className="space-y-4 border-t border-[#E9E5DC] pt-8">
+                <h3 className="text-lg sm:text-xl font-bold text-[#234C3B]">
+                  Curated Amenities
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {project.amenities.map((amenity, idx) => (
+                    <div
+                      key={idx}
+                      className="p-5 bg-white rounded-xs border border-[#E9E5DC] space-y-1.5 shadow-xs"
+                    >
+                      <div className="flex items-center gap-2 text-sm font-bold text-[#234C3B]">
+                        <Compass className="w-4 h-4 text-[#356B4D]" />
+                        <span>{amenity.name}</span>
+                      </div>
+                      <p className="text-xs text-[#292D2A]/80 leading-relaxed">
+                        {amenity.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Specifications Table */}
+            {project.specifications.length > 0 && (
+              <div className="space-y-4 border-t border-[#E9E5DC] pt-8">
+                <h3 className="text-lg sm:text-xl font-bold text-[#234C3B]">
+                  Technical &amp; Construction Specifications
+                </h3>
+                <div className="bg-white rounded-xs border border-[#E9E5DC] overflow-hidden shadow-xs">
+                  <dl className="divide-y divide-[#E9E5DC]">
+                    {project.specifications.map((spec, idx) => (
+                      <div
+                        key={idx}
+                        className="px-5 py-3.5 sm:grid sm:grid-cols-3 sm:gap-4 text-xs sm:text-sm"
+                      >
+                        <dt className="font-semibold text-[#234C3B]">
+                          {spec.label}
+                        </dt>
+                        <dd className="mt-1 sm:mt-0 sm:col-span-2 text-[#292D2A]/85">
+                          {spec.value}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Quick Snapshot Sticky Card (4 cols) */}
@@ -422,6 +354,9 @@ const ProjectDetailsPage = ({ project, onNavigate, onOpenEnquiry }) => {
                 <h3 className="text-xl font-bold text-[#234C3B]">
                   {project.name}
                 </h3>
+                <p className="mt-1 text-sm text-[#292D2A]/70">
+                  {project.nameHindi}
+                </p>
                 <p className="text-xs text-[#292D2A]/70 mt-1">
                   {project.location}
                 </p>
@@ -429,15 +364,9 @@ const ProjectDetailsPage = ({ project, onNavigate, onOpenEnquiry }) => {
 
               <div className="space-y-3.5 text-xs text-[#292D2A]/85">
                 <div className="flex items-center justify-between">
-                  <span className="text-[#292D2A]/60">Property Type</span>
-                  <span className="font-semibold text-[#234C3B]">
-                    {project.category}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-[#292D2A]/60">Construction Status</span>
+                  <span className="text-[#292D2A]/60">Project details</span>
                   <span className="font-semibold text-[#356B4D]">
-                    {project.status}
+                    Available on request
                   </span>
                 </div>
                 {project.totalUnits && (
@@ -464,16 +393,14 @@ const ProjectDetailsPage = ({ project, onNavigate, onOpenEnquiry }) => {
                     </span>
                   </div>
                 )}
-                {project.reraNumber && (
-                  <div className="pt-2 border-t border-[#E9E5DC]">
-                    <span className="text-[11px] text-[#292D2A]/60 block mb-0.5">
-                      Gujarat RERA Registration
-                    </span>
-                    <span className="font-mono text-[11px] font-semibold text-[#234C3B] break-all">
-                      {project.reraNumber}
-                    </span>
-                  </div>
-                )}
+                <div className="pt-2 border-t border-[#E9E5DC]">
+                  <span className="text-[11px] text-[#292D2A]/60 block mb-0.5">
+                    MP RERA registration details
+                  </span>
+                  <span className="text-[11px] font-semibold text-[#234C3B]">
+                    To be confirmed by the developer before booking.
+                  </span>
+                </div>
               </div>
 
               <div className="pt-2 space-y-2.5">
@@ -507,14 +434,14 @@ const ProjectDetailsPage = ({ project, onNavigate, onOpenEnquiry }) => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-6">
           <span className="text-xs font-bold uppercase tracking-widest text-[#356B4D] block mb-1">
-            Site Coordinates & Connectivity
+            City-Level Project Location
           </span>
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#234C3B]">
-            Strategic Location
+            Khargone, Madhya Pradesh
           </h2>
           <p className="text-xs sm:text-sm text-[#292D2A]/80 mt-1">
-            Situated within easy vehicular access of key commercial avenues,
-            schools, and hospitals.
+            This map shows an approximate city-level location. Exact project
+            address and coordinates are pending confirmation.
           </p>
         </div>
 
@@ -544,9 +471,8 @@ const ProjectDetailsPage = ({ project, onNavigate, onOpenEnquiry }) => {
               Interested in {project.name}?
             </h2>
             <p className="text-xs sm:text-sm text-[#292D2A]/80 mt-2 leading-relaxed">
-              Connect directly with our internal property consultants. We will
-              share comprehensive PDF floor plans, master layout sanctions, and
-              current payment schedules.
+              Connect with our team to request available project information,
+              documentation, and current pricing.
             </p>
           </div>
 
@@ -663,7 +589,7 @@ const ProjectDetailsPage = ({ project, onNavigate, onOpenEnquiry }) => {
                 {/* Configuration of Interest */}
                 <div>
                   <label className="block text-xs font-semibold text-[#292D2A] mb-1">
-                    Interested Configuration
+                    Information Requested
                   </label>
                   <select
                     value={selectedUnit}
@@ -675,8 +601,8 @@ const ProjectDetailsPage = ({ project, onNavigate, onOpenEnquiry }) => {
                         {u}
                       </option>
                     ))}
-                    <option value="Any / Flexible Layout">
-                      Any / Flexible Layout
+                    <option value="Project details">
+                      Project details
                     </option>
                   </select>
                 </div>
@@ -692,7 +618,7 @@ const ProjectDetailsPage = ({ project, onNavigate, onOpenEnquiry }) => {
                   rows={2}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="e.g. Planning a weekend visit or inquiring about payment milestones"
+                  placeholder="Share any questions about this project"
                   className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-[#F7F6F0]/50 border border-[#E9E5DC] rounded-xs focus:outline-none focus:ring-1 focus:ring-[#356B4D] resize-none"
                 />
               </div>
